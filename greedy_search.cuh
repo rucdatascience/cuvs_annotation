@@ -47,7 +47,7 @@ __forceinline__ __device__ void sort_visited(//GPU设备函数，强制内联
 {
   const int ELTS   = CANDS / 32;//每个线程处理的元素个数
   using BlockSortT = cub::BlockMergeSort<DistPair<IdxT, accT>, 32, ELTS>;//对排序器重命名
-  //每一个线程都要跑一遍这个代码
+  
   DistPair<IdxT, accT> tmp[ELTS];//没有__shared__ 或 __global__前缀，证明该数组是每个线程的私有数组
   for (int i = 0; i < ELTS; i++) {
     tmp[i].idx  = query->ids[ELTS * threadIdx.x + i];
